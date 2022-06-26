@@ -1,0 +1,12 @@
+body {
+    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    min-height: 90vh;
+}
+h1,
+p {
+    font-family: El Messiri, sans-serif;
+}
+a {
+    color: gray !important;
+    text-decoration: none !important;
+}
