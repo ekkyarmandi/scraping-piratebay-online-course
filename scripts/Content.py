@@ -16,7 +16,6 @@ class Content:
         self.uploaded=self.convert_date(data.get("uploaded"))
         self.magnet_url=data['magnet'].get("magnet")
         self.magnet=False
-        self.comment=False
         self.trusted=False
         self.vip=False
         self.size_str=data.get("size")
@@ -60,8 +59,6 @@ class Content:
         for icon in icons:
             if "magnet" in icon:
                 self.magnet=True
-            elif "comment" in icon:
-                self.comment=True
             elif "trusted" in icon:
                 self.trusted=True
             elif "vip" in icon:
