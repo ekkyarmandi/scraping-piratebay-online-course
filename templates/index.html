@@ -1,155 +1,175 @@
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>My Pirate Bay</title>
-        <link rel="shortcut icon" href="static/images/pirate_icon-icons.com_76799.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="/static/css/style.css" />
-        <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Pirate Bay</title>
+    <link rel="shortcut icon" href="{% static 'images/pirate_icon-icons.com_76799.ico' %}" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
-        <!-- Google Font -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600&family=Supermercado+One&display=swap" rel="stylesheet" />
-    </head>
-    <body>
-        <!-- Header section -->
-        <div class="container mt-5">
-            <div class="d-flex justify-content-center">
-                <img src="static/images/pirate_icon-icons.com_76799.png" alt="Pirate Logo" width="96px" />
-                <div class="ms-2 align-self-center">
-                    <h1>Online Course Pirate Bay</h1>
-                    <p class="text-center py-0 my-0">
-                        <a href="#" target="_blank"><span>Udemy</span></a>
-                        <span>●</span>
-                        <a href="#" target="_blank"><span>Skillshare</span></a>
-                        <span>●</span>
-                        <a href="#" target="_blank"><span>Lynda</span></a>
-                        <span>●</span>
-                        <a href="#" target="_blank"><span>Coursera</span></a>
-                        <span>●</span>
-                        <a href="#" target="_blank"><span>Udacity</span></a>
-                    </p>
-                </div>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600&family=Supermercado+One&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+    <!-- Header section -->
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center">
+            <img src="{% static 'images/pirate_icon-icons.com_76799.png' %}" alt="Pirate Logo" width="96px" />
+            <div class="ms-2 align-self-center">
+                <h1>Online Course Pirate Bay</h1>
+                <p class="text-center py-0 my-0">
+                    <a href="/search/udemy"><span>Udemy</span></a>
+                    <span>●</span>
+                    <a href="/search/skillshare"><span>Skillshare</span></a>
+                    <span>●</span>
+                    <a href="/search/lynda"><span>Lynda</span></a>
+                    <span>●</span>
+                    <a href="/search/coursera"><span>Coursera</span></a>
+                    <span>●</span>
+                    <a href="/search/udacity"><span>Udacity</span></a>
+                </p>
             </div>
-            <hr />
         </div>
-        <!-- End of header section -->
-        <form class="container d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <hr />
+    </div>
+    <!-- End of header section -->
+    <form class="container d-flex">
+        <input class="form-control me-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
 
-        <!-- Table section -->
-        <div class="container">
-            <div class="table-container">
-                <table class="table table-hover">
-                    <thead id="tableHead">
-                        <tr class="header">
-                            <th scope="col">
-                                <a href="#" title="Order by Type">Type</a>
-                            </th>
-                            <th scope="col">
-                                <a href="#" title="Order by Title">Title</a>
-                            </th>
-                            <th scope="col">
-                                <a href="#" title="Order by Uploaded">Uploaded</a>
-                            </th>
-                            <th scope="col">
-                                Magnet
-                            </th>
-                            <th scope="col">
-                                <a href="#" title="Order by Size">Size</a>
-                            </th>
-                            <th scope="col">
-                                <a href="#" title="Order by Seeders">SE</a>
-                            </th>
-                            <th scope="col">
-                                <a href="#" title="Order by Leechers">LE</a>
-                            </th>
-                            <th scope="col">
-                                <span style="white-space: nowrap">
-                                    <a href="#" title="Order by ULed by">ULed by</a>
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for model in models %}
-                        <tr id="{{model.id}}">
-                            <td><a href="#">{{model.type}}</a></td>
-                            <td><a href="{{model.link}}">{{model.name}}</a></td>
-                            <td>{{model.uploaded}}</td>
-                            <td>
-                                <nobr class="container d-flex align-items-end">
-                                    {% if model.magnet %}
-                                    <a href="{{model.magnet_url}}" title="Download this torrent using magnet">
-                                        <i class="mx-1 fa-solid fa-download" style="color: green"></i>
-                                    </a>
-                                    {% endif %}
+    <!-- Table section -->
+    <div class="container">
+        <div class="table-container">
+            <table class="table table-hover">
+                <thead id="tableHead">
+                    <tr class="header">
+                        <th scope="col">
+                            <a href="#" title="Order by Type">Type</a>
+                        </th>
+                        <th scope="col">
+                            <a href="#" title="Order by Title">Title</a>
+                        </th>
+                        <th scope="col">
+                            <a href="#" title="Order by Uploaded">Uploaded</a>
+                        </th>
+                        <th scope="col">
+                            Magnet
+                        </th>
+                        <th scope="col">
+                            <a href="#" title="Order by Size">Size</a>
+                        </th>
+                        <th scope="col">
+                            <a href="#" title="Order by Seeders">SE</a>
+                        </th>
+                        <th scope="col">
+                            <a href="#" title="Order by Leechers">LE</a>
+                        </th>
+                        <th scope="col">
+                            <span style="white-space: nowrap">
+                                <a href="#" title="Order by ULed by">ULed by</a>
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for model in models %}
+                    <tr id="{{model.id}}">
+                        <td><a href="#">{{model.type}}</a></td>
+                        <td><a href="{{model.link}}">{{model.name}}</a></td>
+                        <td>{{model.uploaded}}</td>
+                        <td>
+                            <nobr class="container d-flex align-items-end">
+                                {% if model.magnet %}
+                                <a href="{{model.magnet_url}}" title="Download this torrent using magnet">
+                                    <i class="mx-1 fa-solid fa-download" style="color: green"></i>
+                                </a>
+                                {% endif %}
 
-                                    {% if model.vip %}
-                                    <i class="mx-1 fa-solid fa-crown" style="color: orange" title="VIP"></i>
-                                    {% endif %}
+                                {% if model.vip %}
+                                <i class="mx-1 fa-solid fa-crown" style="color: orange" title="VIP"></i>
+                                {% endif %}
 
-                                    {% if model.trusted %}
-                                    <i class="mx-1 fa-solid fa-square-check" style="color: #00da00" title="Trusted"></i>
-                                    {% endif %}
-                                </nobr>
-                            </td>
-                            <td align="right">{{model.size_str}}</td>
-                            <td align="right">{{model.se}}</td>
-                            <td align="right">{{model.le}}</td>
-                            <td><a href="#">{{model.uled}}</a></td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <!-- End of table section -->
+                                {% if model.trusted %}
+                                <i class="mx-1 fa-solid fa-square-check" style="color: #00da00" title="Trusted"></i>
+                                {% endif %}
+                            </nobr>
+                        </td>
+                        <td align="right">{{model.size_str}}</td>
+                        <td align="right">{{model.se}}</td>
+                        <td align="right">{{model.le}}</td>
+                        <td><a href="#">{{model.uled}}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- End of table section -->
 
-            <!-- Pagination section -->
-            {% if total_contents < rows %}
-            <hr>
-            {% endif %}
-            <div class="container d-flex justify-content-center">
-                <div class="btn-group me-2" aria-label="Pagination">
+        paginations: {{paginations}}
+        <br>
+        max_page: {{max_page}}
+        <br>
+        activate_page: {{active_page}}
+        <br>
+        total_contents: {{total_contents}}
+        <br>
+        prev_page: {{prev_page}}
+        <br>
+        next_page: {{next_page}}
+        <br>
+        rows: {{rows}}
 
-                    {% if active_page > 1 %}
-                    <a role="button" class="btn btn-dark text-light d-flex align-items-center" href="/?page=1">
-                        <i class="fa-solid fa-angles-left"></i>
-                    </a>
+        <!-- Pagination section -->
+        {% if total_contents < rows %}
+        <hr>
+        {% endif %}
+        <div class="container d-flex justify-content-center">
+            <div class="btn-group me-2" aria-label="Pagination">
+
+                {% if active_page > 1 %}
+                <a role="button" class="btn btn-dark text-light d-flex align-items-center" href="?page=1">
+                    <i class="fa-solid fa-angles-left"></i>
+                </a>
                     {% if active_page > total_contents %}
-                    <a role="button" class="btn btn-dark text-light d-flex align-items-center" href="/?page={{prev_page|add:-1}}">
+                    <a role="button" class="btn btn-dark text-light d-flex align-items-center"
+                        href="?page={{prev_page|add:-1}}">
                         <i class="fa-solid fa-angle-left"></i>
                     </a>
                     {% endif %}
+                {% endif %}
+
+                {% for p in paginations %}
+                    {% if p == active_page %}
+                    <div class="btn btn-dark">{{p}}</div>
+                    {% else %}
+                    <a role="button" class="btn btn-secondary text-light" href="?page={{p}}">{{p}}</a>
                     {% endif %}
+                {% endfor %}
 
-                    {% for p in paginations %}
-                        {% if p == active_page %}
-                        <div class="btn btn-dark">{{p}}</div>
-                        {% else %}
-                        <a role="button" class="btn btn-secondary text-light" href="?page={{p}}">{{p}}</a>
-                        {% endif %}
-                    {% endfor %}
-
-                    {% if active_page < total_contents %}
-                    <a role="button" class="btn btn-dark text-light d-flex align-items-center" href="/?page={{next_page|add:1}}">
-                        <i class="fa-solid fa-angle-right"></i>
+                {% if active_page < total_contents %} <a role="button"
+                    class="btn btn-dark text-light d-flex align-items-center" href="?page={{next_page|add:1}}">
+                    <i class="fa-solid fa-angle-right"></i>
                     </a>
-                    <a role="button" class="btn btn-dark text-light d-flex align-items-center" href="/?page={{max_page}}">
+                    <a role="button" class="btn btn-dark text-light d-flex align-items-center"
+                        href="?page={{max_page}}">
                         <i class="fa-solid fa-angles-right"></i>
                     </a>
-                    {% endif %}
+                {% endif %}
 
-                </div>
             </div>
-            <!-- End of pagination section -->
         </div>
-        <footer class="text-center mt-3 mb-4">Copyright &copy; Ekky Armandi (2022)</footer>
-    </body>
+        <!-- End of pagination section -->
+    </div>
+    <footer class="text-center mt-3 mb-4">Copyright &copy; Ekky Armandi (2022)</footer>
+</body>
+
 </html>

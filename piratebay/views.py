@@ -73,6 +73,35 @@ def root(request):
     )
     return render(request,"index.html",context)
 
-def search(request):
-    context={}
+def search(request,keyword):
+
+    # query the database
+    cmd = f"SELECT * FROM {TABLE} WHERE name LIKE '%{keyword.lower()}%';"
+    data = query(cmd,DATABASE)
+    contents = Object(data)
+
+    # sort data by dates by default
+    sort_value = request.GET.get('sort_by','uploaded')
+    contents.sort_by(sort_value)
+
+    # turn models into pages data
+    size = 15
+    models = list2pages(contents.models,size)
+
+    # find pagination length
+    page = request.GET.get('page',1)
+    page = int(page)
+    paginations = configure_pagination(models,page)
+
+    # define the context
+    context=dict(
+        models=models.get(page),
+        paginations=paginations,
+        max_page=len(paginations),
+        active_page=page,
+        total_contents=len(models.get(page)),
+        prev_page=min(paginations),
+        next_page=max(paginations),
+        rows=size
+    )
     return render(request,"index.html",context)

@@ -5,4 +5,5 @@ from piratebay import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.root, name="root"),
+    path('search/<str:keyword>', views.search, name="search")
 ]
