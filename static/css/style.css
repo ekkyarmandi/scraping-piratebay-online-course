@@ -10,3 +10,9 @@ a {
     color: gray !important;
     text-decoration: none !important;
 }
+.table-container {
+    min-height: 662px !important;
+}
+input[type="text"] {
+    width: 200px;
+}
